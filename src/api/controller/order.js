@@ -1,4 +1,4 @@
-import Qrder from "../../database/models/order";
+import Order from "../../database/models/order";
 import { tryAsync } from "../utils/global";
 import { notFound, successResponse } from "../utils/http";
 

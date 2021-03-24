@@ -22,7 +22,7 @@ const verifyToken = async (req, res, next) => {
     }
 }
 
-const isAdmin = (req, res, next) => {
+const isAdmin = async (req, res, next) => {
     const {_id} = req.user
     const user = await findUserById(_id)
     if(user.isAdmin){
