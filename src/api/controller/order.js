@@ -75,4 +75,4 @@ const updateOrder = () =>
          return notFound(res, 'order not found')
     })
 
-export {getOrder, getOrders, getOrdersByUser, createOrder, updateOrder}
+export {getOrder, getOrders, getOrdersByUser, createOrder, updateOrder, deleteOrder}

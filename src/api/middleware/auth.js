@@ -5,16 +5,18 @@ import { findUserById } from "../utils/query";
 
 const verifyToken = async (req, res, next) => {
     const bearerToken = req.headers.authorization;
-    if(typeof bearerToken === undefined || '') {
+    if(typeof bearerToken === 'undefined' || '') {
         return notAuthenticated(res, 'no bearer token')
     }
     const token = bearerToken.split(' ')[1];
     const decoded = decodeToken(token)
-    const user = await User.findOne({_id: decoded.userId});
+    const user = await findUserById(decoded.user_id);
+
     try{
         if(!user){
             return notAuthenticated(res, 'user not authenticated')
         }
+        user.password = undefined
         req.user = user;
         next()
     }catch(e){

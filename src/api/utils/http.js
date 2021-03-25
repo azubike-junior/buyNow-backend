@@ -7,7 +7,7 @@ const badRequest = (res, message) => {
 const createResponse = (res, data) => {
     res.status(CREATED).json(data)
 }
-
+ 
 const serverError = (res) => {
     res.status(SERVER_ERROR).send({message: 'something usual happened! please try again'})
 }

@@ -1,15 +1,15 @@
 import { tryAsync } from "../utils/global"
 import { badRequest, createResponse, notFound, successResponse } from "../utils/http";
 import { generateToken } from "../utils/jwt";
-import { findUserByEmail } from "../utils/query";
+import { findUserByEmail, findUserById } from "../utils/query";
+import User from '../../database/models/user'
 
 const register = () => 
     tryAsync( async (req, res) => {
         const {name, email, password} = req.body;
-
-        const existingUser = findUserByEmail(email);
+        const existingUser = await findUserByEmail(email);
         if(existingUser){
-            return badRequest(res, 'user is not available');
+            return badRequest(res, 'user already exists');
         }
         const user = new User({
             name, 
@@ -26,12 +26,14 @@ const login = () =>
     tryAsync(async (req, res) => {
         const {email, password} = req.body;
 
-        const user = findUserByEmail(email);
+        const user = await findUserByEmail(email);
+
+        console.log('==========user', user)
         if(!user){
-            return notFound(res, 'invalid login credentials'); 
+            return badRequest(res, 'invalid login credentials'); 
         }
         if(!user.isMatchPassword(password)){
-            return notFound(res, 'invalid login credentials')
+            return badRequest(res, 'invalid login credentials')
         }
         user.password = undefined
         const token = generateToken(user._id.toString())
@@ -40,22 +42,17 @@ const login = () =>
 
 const updateUser = () => 
     tryAsync(async (req, res) => {
-        const {name, password, email} = req.body
-
-        const existingUser = findUserByEmail(email)
-
+        const {body:{name, email}, user:{_id}} = req
+        const existingUser = await findUserById(_id)
         if(!existingUser){
             return notFound(res, 'user not found')
         }
         const user = {
             name, 
-            password,
-            email
+            email,
         }
 
         await existingUser.updateUser(user);
-        existingUser.password = undefined
-
         return createResponse(res, existingUser)
     })
 

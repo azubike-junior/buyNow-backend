@@ -1,6 +1,7 @@
 import Product from "../../database/models/product";
 import { createResponse, notFound, serverError, successResponse } from "../utils/http";
 import { findProductById, deleteProductById } from "../utils/query";
+import {tryAsync} from '../utils/global'
 
 const getProduct = () => 
     tryAsync(async (req, res) => {

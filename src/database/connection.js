@@ -12,4 +12,4 @@ const connectToDatabase = (config) => {
     db.once('open', () => console.log('database connected successfully'))
 }
 
-export default connectToDatabase;
+export default connectToDatabase; 

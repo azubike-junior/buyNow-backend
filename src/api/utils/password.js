@@ -7,6 +7,6 @@ const hashPassword = (password) => {
 
 const comparePassword = (password, dbPassword) => {
     return bcrypt.compareSync(password, dbPassword)
-}
+} 
 
 export {comparePassword, hashPassword}

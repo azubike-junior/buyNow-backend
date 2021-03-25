@@ -32,14 +32,13 @@ userSchema.pre('save', function(next){
     next()
 })
 
-user.methods.isMatchPassword = function(password) {
+userSchema.methods.isMatchPassword = function(password) {
     return comparePassword(password, this.password)
 }
 
-user.methods.updateUser = function(user) {
+userSchema.methods.updateUser = function(user) {
     this.name = user.name;
     this.email = user.email
-    this.password = user.password
     this.save()
     return this;
 }

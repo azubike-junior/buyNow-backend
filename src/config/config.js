@@ -1,8 +1,7 @@
 import dotenv from 'dotenv';
-
 dotenv.config();
 
-const {URI, dbName, secret, node_env, PAYPAL_CLIENT_ID, accessKeyId, secretAccessKey} = process.env;
+const {URI, dbName, secret, node_env, PAYPAL_CLIENT_ID, accessKeyId, secretAccessKey, port} = process.env;
 
 export const config = {
     URI,
@@ -11,5 +10,6 @@ export const config = {
     node_env,
     PAYPAL_CLIENT_ID,
     accessKeyId,
-    secretAccessKey
+    secretAccessKey,
+    port
 }

@@ -14,4 +14,4 @@ export const tryAsync = (handler) => {
             return serverError(res, 'something unsual happened')
         }
     }
-}
+} 

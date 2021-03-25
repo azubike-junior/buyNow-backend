@@ -1,12 +1,13 @@
 import express from 'express';
 import { login, register, updateUser } from '../controller/auth';
+import { verifyToken } from '../middleware/auth';
 
-const userRoute = express.Router();
+const authRoute = express.Router();
 
-userRoute.post('/', register());
+authRoute.post('/', register());
 
-userRoute.post('/login', login());
+authRoute.post('/login', login());
 
-userRoute.Put('/', updateUser())
+authRoute.put('/', verifyToken, updateUser())
 
-export default userRoute
+export default authRoute
